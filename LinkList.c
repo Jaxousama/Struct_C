@@ -14,7 +14,7 @@ int est_vide_LinkList(Cell* c){
     return 0;
 }
 
-int affiche(Cell* c){
+int affiche_Linklist(Cell* c){
     if(est_vide_LinkList(c)){
         printf("Vide\n");
         return -1;
@@ -45,10 +45,11 @@ int ajout_Cell_Queue(Cell** c,int x){
         return 0;
     }
     Cell* c_2 = init(x);
-    while ((*c)->next != NULL){
-        (*c) = (*c)->next;
+    Cell* Actuel = (*c);
+    while (Actuel->next != NULL){
+        Actuel = Actuel->next;
     }
-    (*c)->next = c_2;
+    Actuel->next = c_2;
     return 0;
 }
 
@@ -179,10 +180,15 @@ int supprimer_all_Occurence(Cell** c,int x){
 
 int main(){
     Cell* c =NULL ;
-
     ajout_Cell_Tete(&c,45);
+    ajout_Cell_Tete(&c,45);
+    ajout_Cell_Tete(&c,45);
+    ajout_Cell_Tete(&c,45);
+    ajout_Cell_Queue(&c,12);
+    ajout_Cell_Queue(&c,45);
+    ajout_Cell_Queue(&c,45);
     affiche(c);
-    supprimer_first_Occurence(&c,45);
+    supprimer_all_Occurence(&c,45);
     affiche(c);
     
 }
