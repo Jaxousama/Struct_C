@@ -3,14 +3,17 @@
 
 
 typedef struct Node{
+    
     int donnee;
     struct Node* next;
+
 }Cell;
 
 int est_vide_LinkList(Cell* c){
     if(c == NULL || c ==0){
         return 1;
     }
+
     return 0;
 }
 
@@ -19,16 +22,20 @@ int affiche_Linklist(Cell* c){
         printf("Vide\n");
         return -1;
     }
+
     if(c->next == NULL){
         printf("%d\n",c->donnee);
         return 0;
     }
+
     printf("%d",c->donnee);
     c=c->next;
+
     while(c != NULL){
         printf("->%d",c->donnee);
         c = c->next;
     }
+
     printf("\n");
     return 0;
 }
@@ -44,6 +51,7 @@ int ajout_Cell_Queue(Cell** c,int x){
         (*c) = init(x);
         return 0;
     }
+
     Cell* c_2 = init(x);
     Cell* Actuel = (*c);
     while (Actuel->next != NULL){
@@ -69,6 +77,7 @@ int supprimer_Queue(Cell* c){
         printf("Erreur liste vide");
         return -1;
     }
+
     if(c->next == NULL){
         free(c);
         return 0;
@@ -86,7 +95,7 @@ int supprimer_Queue(Cell* c){
     return 0;
 }
 
-int supprimer_tete(Cell** c){
+int supprimer_Tete(Cell** c){
     if(est_vide_LinkList((*c))){
         printf("Erreur liste vide");
         return -1;
@@ -105,6 +114,7 @@ int recherche_LinkList(Cell* c,int x){
     while(Actuel->donnee == x && Actuel != NULL){
         Actuel = Actuel -> next;
     }
+
     if(Actuel == NULL){
         printf("Pas trouvé");
         return 0;
@@ -130,11 +140,13 @@ int supprimer_first_Occurence(Cell** c, int x){
     }
 
     while (Suivant != NULL){
+
         if(Suivant->donnee == x){
             Actuel->next = Suivant->next;
             free(Suivant);
             return 0;
         }
+
         Suivant = Suivant->next;
         Actuel = Actuel->next;
     }
@@ -150,7 +162,6 @@ int supprimer_all_Occurence(Cell** c,int x){
         return -1;
     }
     
-
     while((*c)!= NULL && (*c)->donnee == x){
         *c=(*c)->next;
     }
@@ -163,18 +174,20 @@ int supprimer_all_Occurence(Cell** c,int x){
     Cell* Suivant = (*c)->next;
     
     while (Suivant != NULL){
+
         if((Suivant->donnee == x)){
             Actuel->next = Suivant->next;
             free(Suivant);
             Suivant = Actuel->next;
         }
+
         else{
             Suivant = Suivant->next;
             Actuel = Actuel->next;
         }
+        
     }
     
-
     return 0;
 }
 
