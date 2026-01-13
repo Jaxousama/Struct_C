@@ -1,13 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "LinkList.h"
 
 
-typedef struct Node{
-    
-    int donnee;
-    struct Node* next;
-
-}Cell;
 
 int est_vide_LinkList(Cell* c){
     if(c == NULL || c ==0){
@@ -70,6 +65,7 @@ int ajout_Cell_Tete(Cell** c,int x){
     c_2 = init(x);
     c_2->next = (*c);
     (*c) = c_2;
+    return 1;
 }
 
 int supprimer_Queue(Cell* c){
@@ -101,6 +97,7 @@ int supprimer_Tete(Cell** c){
         return -1;
     }
     *c=(*c)->next;
+    return 1;
 }
 
 int recherche_LinkList(Cell* c,int x){
@@ -135,7 +132,7 @@ int supprimer_first_Occurence(Cell** c, int x){
     Cell* Suivant = (*c)->next;
 
     if(Actuel->donnee == x){
-        if(supprimer_tete(c) == -1){return -1;};
+        if(supprimer_Tete(c) == -1){return -1;};
         return 1;
     }
 
@@ -175,7 +172,7 @@ int supprimer_all_Occurence(Cell** c,int x){
     
     while (Suivant != NULL){
 
-        if((Suivant->donnee == x)){
+        if(Suivant->donnee == x){
             Actuel->next = Suivant->next;
             free(Suivant);
             Suivant = Actuel->next;
@@ -200,8 +197,8 @@ int main(){
     ajout_Cell_Queue(&c,12);
     ajout_Cell_Queue(&c,45);
     ajout_Cell_Queue(&c,45);
-    affiche(c);
+    affiche_Linklist(c);
     supprimer_all_Occurence(&c,45);
-    affiche(c);
+    affiche_Linklist(c);
     
 }

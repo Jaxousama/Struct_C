@@ -1,14 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-
-
-typedef struct Fifo {
-    unsigned int plafond;
-    unsigned int taille;
-    int cursor;
-    int* fifo;
-}fifo;
+#include "Fifo.h"
 
 
 int est_vide_Fifo(fifo* f){

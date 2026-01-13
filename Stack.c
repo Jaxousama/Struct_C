@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "Stack.h"
 
-typedef struct Stack{
-    unsigned int taille;
-    unsigned int plafond;
-    int* Stack;
-}stack;
 
 int est_vide_Stack(stack* s){
     if(s->taille==0){
@@ -37,7 +33,7 @@ stack* init_stack(int taille){
         return NULL;
     }
     stack* s;
-    s=malloc(sizeof(stack));
+    s = malloc(sizeof(stack));
     s->taille = 0;
     s->plafond = taille;
     s->Stack = malloc(sizeof(int) * s->plafond);
