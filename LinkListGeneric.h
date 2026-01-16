@@ -23,9 +23,11 @@ int LinkList_empty(List* l);
 
 void print_LinkList(List* l);
 
-List* init(void* data, FuncFree freefct, FuncCompare cmpfct, FunPrint printfct);
+List* init_list(FuncFree freefct, FuncCompare cmpfct, FunPrint printfct);
 
 Cell* init_Cell(void* data);
+
+void free_List(List* l);
 
 int add_Head(List* l,void* data);
 
@@ -36,6 +38,8 @@ int remove_Head(List *l);
 int remove_Last(List *l);
 
 int remove_Index(List* l, int index);
+
+int remove_first_occurence(List* l, void* data);
 
 int find_Elem(List* l,void* data);
 

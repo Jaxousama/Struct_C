@@ -28,14 +28,13 @@ void print_LinkList(List* l){
     }
 }
 
-List* init(void* data, FuncFree freefct, FuncCompare cmpfct, FunPrint printfct){
+List* init_list(FuncFree freefct, FuncCompare cmpfct, FunPrint printfct){
     List* l = malloc(sizeof(List));
-    Cell* c = init_Cell(data);
 
     l->freefunc = freefct;
     l->cmpfunc = cmpfct;
     l->printfunc = printfct;
-    l->head = c; 
+    l->head = NULL;
     return l;
 }
 
@@ -45,6 +44,21 @@ Cell* init_Cell(void* data){
     c->next = NULL;
     return c;
 }
+
+void free_List(List* l){
+    Cell* current = l->head;
+    Cell* next = current->next;
+    while(current != NULL){
+        if(l->freefunc!=NULL){
+            l->freefunc(current->data);
+        }
+        free(current);
+        current = next;
+        next = next->next;
+    }
+    free(l);
+}
+
 
 int add_Head(List* l,void* data){
     Cell* c = init_Cell(data);
@@ -146,26 +160,51 @@ int remove_Index(List* l, int index){
     return 1;
 }
 
-int find_Elem(List* l,void* data){
+int remove_first_occurence(List* l, void* data){
     if(LinkList_empty(l)){
         return -1;
     }
     if(data == NULL){
         return -1;
     }
+
+    int index = find_Elem(l,data);
+
+    remove_Index(l,index);
+
+    return 1;
+}
+
+/*
+find_Elem(List* l,void* data)
+return the index of data if data is in the list 
+args:
+-List* l -> the list where we search for data
+-void* data -> data search in the list
+return:
+index -> the index of the data
+-1 -> if data was not found
+-2 -> if data == NULL
+*/
+
+int find_Elem(List* l,void* data){
+    if(LinkList_empty(l)){
+        return 0;
+    }
+    if(data == NULL){
+        return -2;
+    }
     
     Cell* current = l->head;
-
     int index = 0;
-
     while(!(l->cmpfunc(current->data,data))){
+        current = current->next;
         if(current==NULL){
             return -1;
         }
-        current = current->next;
         index++;
     }
-
+    
     return index;
 }
 
@@ -181,29 +220,24 @@ test* init_teststruct(int x, int y){
     return t;
 }
 
+
+/*
 void print_test(void* t){
-    test* test = t;
-    printf("%d\n",test->x);
-    printf("%d\n",test->y);
+    printf("%d\n",*(int*)t);
 }
 
 int compare_test(void* aa, void *bb){
-    test* a = aa;
-    test* b = bb;
-    if((a->x==b->x)&&(a->y == b->y)){
-        return 1;
-    }
-    return 0;
+    
 }
 
 
 int main(){
     List* l;
-    test* t = init_teststruct(5,7);
-    test* test = init_teststruct(7,8);
-    l=init(t,NULL,(FuncCompare)compare_test,(FunPrint)print_test);
-    add_Head(l,test);
+    int t = 7;
+    int test = 8;
+    l=init_list(NULL,(FuncCompare)compare_test,(FunPrint)print_test);
+    add_Head(l,&t);
+    add_Head(l,&test);
     print_LinkList(l);
-    printf("%d\n",find_Elem(l,test));
-    
 }
+*/
